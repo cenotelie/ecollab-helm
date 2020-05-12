@@ -1,0 +1,13 @@
+# Default values for ecollab.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+versions:
+  saas: latest
+  backend: latest
+  frontend: latest
+  activiti: 7.1.0.M5
+  processes: latest
+  connectors: latest
+
+rootUri: "https://integration.ecollab.cenotelie.fr"

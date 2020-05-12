@@ -1,0 +1,8 @@
+apiVersion: v2
+name: ecollab
+description: A Helm chart for the deployment of eCollab in a Kubernetes cluster
+type: application
+# chart version
+version: 0.1.0
+# application version
+appVersion: 0.1.0

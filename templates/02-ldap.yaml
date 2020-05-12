@@ -1,0 +1,47 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  namespace: default
+  name: ldap
+  labels:
+    app: ldap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ldap
+  template:
+    metadata:
+      labels:
+        app: ldap
+    spec:
+      imagePullSecrets:
+      - name: ecollab-registry
+      containers:
+        - name: ldap
+          image: "rg.fr-par.scw.cloud/ecollab/ldap:{{ .Values.versions.saas }}"
+          env:
+            - name: LDAP_ORGANISATION
+              value: "cenotelie"
+            - name: LDAP_DOMAIN
+              value: "cenotelie.org"
+            - name: LDAP_ADMIN_PASSWORD
+              value: "eCollab"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ldap
+spec:
+  ports:
+    - protocol: TCP
+      name: ldap1
+      port: 389
+      targetPort: 389
+    - protocol: TCP
+      name: ldap2
+      port: 636
+      targetPort: 636
+  selector:
+    app: ldap

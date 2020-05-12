@@ -1,0 +1,67 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  namespace: default
+  name: backend
+  labels:
+    app: backend
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      volumes:
+        - name: backend-data
+          hostPath:
+            path: /data/backend
+      serviceAccountName: auto-deployer
+      imagePullSecrets:
+      - name: ecollab-registry
+      containers:
+        - name: backend
+          image: "rg.fr-par.scw.cloud/ecollab/backend:{{ .Values.versions.backend }}"
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: DB_FILENAME
+              value: "/data/backend.db"
+            - name: LTS
+              value: "blazegraph_kubernetes"
+            - name: BLZG_IMAGE
+              value: "rg.fr-par.scw.cloud/ecollab/blazegraph:{{ .Values.versions.saas }}"
+            - name: EXECUTOR
+              value: "openfaas"
+            - name: KEYCLOAK_URL
+              value: "{{ .Values.rootUri }}/auth"
+            - name: KEYCLOAK_SECRET
+              value: "86708154-592b-4739-83a7-648c18ca67a4"
+            - name: KEYCLOAK_REALM
+              value: "activiti"
+            - name: KEYCLOAK_CLIENT
+              value: "activiti"
+            - name: K8S_DEBUG
+              value: "true"
+          volumeMounts:
+            - mountPath: "/data"
+              name: backend-data
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  ports:
+    - protocol: TCP
+      name: http
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: backend

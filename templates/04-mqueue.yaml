@@ -1,0 +1,45 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  namespace: default
+  name: rabbitmq
+  labels:
+    app: rabbitmq
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+    spec:
+      volumes:
+        - name: rabbitmq-data
+          hostPath:
+            path: /data/rabbitmq
+      containers:
+        - name: rabbitmq
+          image: activiti/rabbitmq-stomp:7.0.0.RC1
+          ports:
+            - name: mq2
+              containerPort: 15672
+          volumeMounts:
+            - mountPath: "/var/lib/rabbitmq"
+              name: rabbitmq-data
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq
+spec:
+  ports:
+    - protocol: TCP
+      name: mq2
+      port: 15672
+      targetPort: 15672
+  selector:
+    app: rabbitmq
