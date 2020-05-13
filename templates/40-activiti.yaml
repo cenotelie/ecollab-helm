@@ -375,6 +375,8 @@ spec:
       labels:
         app: ecollab-connectors
     spec:
+      imagePullSecrets:
+        - name: ecollab-registry
       containers:
         - name: connectors
           image: "rg.fr-par.scw.cloud/ecollab/process-connectors:{{ .Values.versions.connectors }}"
@@ -422,6 +424,8 @@ spec:
       labels:
         app: ecollab-processes
     spec:
+      imagePullSecrets:
+        - name: ecollab-registry
       containers:
         - name: processes
           image: "rg.fr-par.scw.cloud/ecollab/processes:{{ .Values.versions.processes }}"
