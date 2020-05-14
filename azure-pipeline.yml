@@ -26,5 +26,5 @@ stages:
         sshEndpoint: ecollab-integration
         runOptions: 'commands'
         commands: |
-          helm repo update
-          helm upgrade $ECOLLAB_RELEASE ecollab/ecollab
+          sudo helm repo update
+          sudo helm upgrade $ECOLLAB_RELEASE ecollab/ecollab
