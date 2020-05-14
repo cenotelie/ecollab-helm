@@ -18,10 +18,14 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - task: SSH@0
+    - task: ShellScript@2
+      displayName: Build helm application
       inputs:
-        sshEndpoint: ecollab-integration
-        runOptions: 'commands'
-        commands: |
-          sudo helm repo update
-          sudo helm upgrade `sudo helm list | awk /ecollab/'{ print $1 }'` ecollab/ecollab
+        scriptPath: build.sh
+    # - task: SSH@0
+    #   inputs:
+    #     sshEndpoint: ecollab-integration
+    #     runOptions: 'commands'
+    #     commands: |
+    #       sudo helm repo update
+    #       sudo helm upgrade `sudo helm list | awk /ecollab/'{ print $1 }'` ecollab/ecollab
