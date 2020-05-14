@@ -23,6 +23,6 @@ stages:
         sshEndpoint: ecollab-integration
         runOptions: 'commands'
         commands: |
-          ECOLLAB_RELEASE=`helm list | awk /ecollab/'{ print $1 }'`
+          ECOLLAB_RELEASE=`sudo helm list | awk /ecollab/'{ print $1 }'`
           sudo helm repo update
           sudo helm upgrade $ECOLLAB_RELEASE ecollab/ecollab
