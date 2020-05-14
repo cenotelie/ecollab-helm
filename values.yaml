@@ -3,11 +3,11 @@
 # Declare variables to be passed into your templates.
 
 versions:
-  saas: git-5a5534a
-  backend: git-91ca77c
-  frontend: git-6ee6665
+  saas: latest
+  backend: latest
+  frontend: latest
   activiti: 7.1.0.M5
-  processes: git-fdeb2cd
-  connectors: git-e8818b1
+  processes: latest
+  connectors: latest
 
 rootUri: "https://integration.ecollab.cenotelie.fr"
