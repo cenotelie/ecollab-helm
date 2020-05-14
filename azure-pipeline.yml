@@ -1,0 +1,30 @@
+trigger:
+  branches:
+    include:
+      - master
+  tags:
+    include:
+      - v*
+
+resources:
+- repo: self
+
+stages:
+- stage: Deployment
+  displayName: Deployment
+  jobs:
+  - job: Deployment
+    displayName: Deployment on integration
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - bash: |
+        ECOLLAB_RELEASE=`helm list | awk /ecollab/'{ print $1 }'`
+        echo "##vso[task.setvariable variable=ECOLLAB_RELEASE]$ECOLLAB_RELEASE"
+    - task: SSH@0
+      inputs:
+        sshEndpoint: ecollab-integration
+        runOptions: 'commands'
+        commands: |
+          helm repo update
+          helm upgrade $ECOLLAB_RELEASE ecollab/ecollab
