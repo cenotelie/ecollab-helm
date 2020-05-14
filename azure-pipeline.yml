@@ -18,13 +18,11 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - bash: |
-        ECOLLAB_RELEASE=`helm list | awk /ecollab/'{ print $1 }'`
-        echo "##vso[task.setvariable variable=ECOLLAB_RELEASE]$ECOLLAB_RELEASE"
     - task: SSH@0
       inputs:
         sshEndpoint: ecollab-integration
         runOptions: 'commands'
         commands: |
+          ECOLLAB_RELEASE=`helm list | awk /ecollab/'{ print $1 }'`
           sudo helm repo update
           sudo helm upgrade $ECOLLAB_RELEASE ecollab/ecollab
