@@ -3,11 +3,11 @@
 # Declare variables to be passed into your templates.
 
 versions:
-  saas: latest
-  backend: latest
-  frontend: latest
+  saas: 28f2dc8
+  backend: def3bc4
+  frontend: 814bc05
   activiti: 7.1.0.M5
-  processes: latest
-  connectors: latest
+  processes: 6b1f1a8
+  connectors: dfd1d2d
 
 rootUri: "https://integration.ecollab.cenotelie.fr"
