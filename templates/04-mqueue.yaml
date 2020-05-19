@@ -25,7 +25,7 @@ spec:
           image: activiti/rabbitmq-stomp:7.0.0.RC1
           ports:
             - name: mq2
-              containerPort: 15672
+              containerPort: 5672
           volumeMounts:
             - mountPath: "/var/lib/rabbitmq"
               name: rabbitmq-data
