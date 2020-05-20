@@ -437,8 +437,12 @@ spec:
               value: "false"
             - name: SPRING_RABBITMQ_HOST
               value: "rabbitmq.default.svc.cluster.local"
+            - name: ACT_KEYCLOAK_REALM
+              value: "activiti"
             - name: ACT_KEYCLOAK_URL
               value: "{{ .Values.rootUri }}/auth"
+            - name: ACT_KEYCLOAK_CLIENT
+              value: "activiti"
             - name: SERVER_SERVLET_CONTEXT_PATH
               value: "/processes"
             - name: SPRING_DATASOURCE_URL
