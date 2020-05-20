@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 versions:
-  saas: git-05ebef2
+  saas: git-c1822a2
   backend: git-def3bc4
   frontend: git-814bc05
   activiti: 7.1.0.M5

@@ -403,7 +403,7 @@ spec:
       port: 8080
       targetPort: 8080
   selector:
-    app: connectors
+    app: ecollab-connectors
 
 ---
 kind: Deployment
@@ -466,4 +466,4 @@ spec:
       port: 8080
       targetPort: 8080
   selector:
-    app: processes
+    app: ecollab-processes
