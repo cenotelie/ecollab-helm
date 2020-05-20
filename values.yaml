@@ -7,7 +7,7 @@ versions:
   backend: git-def3bc4
   frontend: git-814bc05
   activiti: 7.1.0.M5
-  processes: git-f3609e2
-  connectors: git-dfd1d2d
+  processes: git-1dbdbc7
+  connectors: git-80f6aae
 
 rootUri: "https://integration.ecollab.cenotelie.fr"
