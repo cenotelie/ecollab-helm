@@ -361,19 +361,19 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   namespace: default
-  name: ecollab-connectors
+  name: connectors
   labels:
-    app: ecollab-connectors
+    app: connectors
 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ecollab-connectors
+      app: connectors
   template:
     metadata:
       labels:
-        app: ecollab-connectors
+        app: connectors
     spec:
       imagePullSecrets:
         - name: ecollab-registry
@@ -395,7 +395,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ecollab-connectors
+  name: connectors
 spec:
   ports:
     - protocol: TCP
@@ -403,26 +403,26 @@ spec:
       port: 8080
       targetPort: 8080
   selector:
-    app: ecollab-connectors
+    app: connectors
 
 ---
 kind: Deployment
 apiVersion: apps/v1
 metadata:
   namespace: default
-  name: ecollab-processes
+  name: processes
   labels:
-    app: ecollab-processes
+    app: processes
 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ecollab-processes
+      app: processes
   template:
     metadata:
       labels:
-        app: ecollab-processes
+        app: processes
     spec:
       imagePullSecrets:
         - name: ecollab-registry
@@ -458,7 +458,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ecollab-processes
+  name: processes
 spec:
   ports:
     - protocol: TCP
@@ -466,4 +466,4 @@ spec:
       port: 8080
       targetPort: 8080
   selector:
-    app: ecollab-processes
+    app: processes
