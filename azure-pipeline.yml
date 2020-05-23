@@ -19,12 +19,12 @@ stages:
       displayName: Build helm application
       inputs:
         scriptPath: build.sh
-    - bash: |
-        git config user.email "contact@cenotelie.fr"
-        git config user.name "Azure Pipeline"
-        git add .
-        git commit -m "Packaged new version"
-        git push https://git:%GITHUBTOKEN@github.com/cenotelie/ecollab-helm HEAD:master
+    # - bash: |
+    #     git config user.email "contact@cenotelie.fr"
+    #     git config user.name "Azure Pipeline"
+    #     git add .
+    #     git commit -m "Packaged new version"
+    #     git push https://git:%GITHUBTOKEN@github.com/cenotelie/ecollab-helm HEAD:master
     # - task: SSH@0
     #   inputs:
     #     sshEndpoint: ecollab-integration
