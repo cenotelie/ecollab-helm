@@ -2,6 +2,11 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+imageCredentials:
+  registry: rg.fr-par.scw.cloud
+  username: nologin
+  password: xxx
+
 versions:
   saas: git-d10df2f
   backend: git-84dbaf0
