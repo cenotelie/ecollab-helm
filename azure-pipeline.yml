@@ -2,9 +2,6 @@ trigger:
   branches:
     include:
       - master
-  tags:
-    include:
-      - v*
 
 resources:
 - repo: self
@@ -28,7 +25,7 @@ stages:
         git config user.name "Azure Pipeline"
         git add .
         git commit -m "Packaged new version"
-        git push https://%TOKEN%@github.com/cenotelie/ecollab-helm
+        git push https://%TOKEN%@github.com/cenotelie/ecollab-helm HEAD:master
     # - task: SSH@0
     #   inputs:
     #     sshEndpoint: ecollab-integration
