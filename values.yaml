@@ -8,7 +8,7 @@ imageCredentials:
   password: xxx
 
 versions:
-  saas: git-d10df2f
+  saas: git-1e6f2fa
   backend: git-84dbaf0
   frontend: git-e69e35b
   activiti: 7.1.0.M5
