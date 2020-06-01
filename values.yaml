@@ -11,7 +11,7 @@ versions:
   saas: git-1e6f2fa
   backend: git-84dbaf0
   frontend: git-e69e35b
-  activiti: 7.1.0.M5
+  activiti: 7.1.0.M6
   processes: git-4da4b69
   connectors: git-0cce581
 
