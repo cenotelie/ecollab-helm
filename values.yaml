@@ -8,11 +8,11 @@ imageCredentials:
   password: xxx
 
 versions:
-  saas: git-1e6f2fa
-  backend: git-84dbaf0
-  frontend: git-e69e35b
+  saas: git-e729d00
+  backend: git-ea35df0
+  frontend: git-8db4906
   activiti: 7.1.0.M6
-  processes: git-4da4b69
-  connectors: git-325075f
+  processes: git-398508d
+  connectors: git-485150e
 
 rootUri: "https://integration.ecollab.cenotelie.fr"
