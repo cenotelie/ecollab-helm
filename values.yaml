@@ -7,12 +7,13 @@ imageCredentials:
   username: nologin
   password: xxx
 
+# 'latest' are not real version number and must be overriden
 versions:
-  saas: git-e729d00
-  backend: git-ea35df0
-  frontend: git-8db4906
+  saas: latest
+  backend: latest
+  frontend: latest
   activiti: 7.1.0.M6
-  processes: git-398508d
-  connectors: git-485150e
+  processes: latest
+  connectors: latest
 
 rootUri: "https://integration.ecollab.cenotelie.fr"
