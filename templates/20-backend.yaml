@@ -90,6 +90,8 @@ spec:
               value: "blazegraph_kubernetes"
             - name: BLZG_IMAGE
               value: "rg.fr-par.scw.cloud/ecollab/blazegraph:{{ .Values.versions.saas }}"
+            - name: CONSISTENCY_RUNNER
+              value: xowl_kubernetes
             - name: EXECUTOR
               value: "openfaas"
             - name: KEYCLOAK_URL
