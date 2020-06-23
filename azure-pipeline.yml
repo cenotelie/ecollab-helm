@@ -25,10 +25,10 @@ stages:
     #     git add .
     #     git commit -m "Packaged new version"
     #     git push https://git:%GITHUBTOKEN@github.com/cenotelie/ecollab-helm HEAD:master
-    # - task: SSH@0
-    #   inputs:
-    #     sshEndpoint: ecollab-integration
-    #     runOptions: 'commands'
-    #     commands: |
-    #       sudo helm repo update
-    #       sudo helm upgrade `sudo helm list | awk /ecollab/'{ print $1 }'` ecollab/ecollab
+    - task: SSH@0
+      inputs:
+        sshEndpoint: ecollab-integration
+        runOptions: 'commands'
+        commands: |
+          sudo helm repo update
+          sudo helm upgrade -f values.yaml $(sudo helm list | awk '/ecollab/{print $1}') ecollab/ecollab
