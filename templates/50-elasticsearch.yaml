@@ -16,6 +16,10 @@ spec:
       labels:
         app: elasticsearch
     spec:
+      volumes:
+        - name: esdata
+          hostPath:
+            path: /data/esdata
       containers:
         - name: elasticsearch
           image: elasticsearch:7.8.1
@@ -27,6 +31,24 @@ spec:
           env:
             - name: discovery.type
               value: "single-node"
+          volumeMounts:
+            - mountPath: "/usr/share/elasticsearch/data"
+              name: esdata
+          command:
+            - /bin/bash
+            - -c
+            - >
+              set -e;
+              set -x;
+              chown elasticsearch:elasticsearch /usr/share/elasticsearch/data;
+              for datadir in $(find /usr/share/elasticsearch/data -mindepth 1 -maxdepth 1 -not -name ".snapshot"); do
+                chown -R elasticsearch:elasticsearch $datadir;
+              done;
+              chown elasticsearch:elasticsearch /usr/share/elasticsearch/logs;
+              for logfile in $(find /usr/share/elasticsearch/logs -mindepth 1 -maxdepth 1 -not -name ".snapshot"); do
+                chown -R elasticsearch:elasticsearch $logfile;
+              done
+
 ---
 apiVersion: v1
 kind: Service
