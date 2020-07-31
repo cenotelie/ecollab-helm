@@ -1,0 +1,54 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  namespace: default
+  name: elasticsearch
+  labels:
+    app: elasticsearch
+
+spec:
+  replicas: 
+  selector:
+    matchLabels:
+      app: elasticsearch
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      volumes:
+        - name: esdata
+          hostPath:
+            path: /data/esdata
+      containers:
+        - name: elasticsearch
+          image: elasticsearch:7.8.1
+          ports:
+            - name: es1
+              containerPort: 9200
+            - name: es2
+              containerPort: 9300
+          env:
+            - name: discovery.type
+              value: "single-node"
+          volumeMounts:
+            - mountPath: "/usr/share/elasticsearch/data"
+              name: esdata
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch
+spec:
+  ports:
+    - protocol: TCP
+      name: es1
+      port: 9200
+      targetPort: 9200
+    - protocol: TCP
+      name: es2
+      port: 9300
+      targetPort: 9300
+  selector:
+    app: elasticsearch
