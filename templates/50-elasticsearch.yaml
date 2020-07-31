@@ -34,7 +34,7 @@ spec:
           volumeMounts:
             - mountPath: "/usr/share/elasticsearch/data"
               name: esdata
-          command: ["/bin/bash", "-c", chown -R elasticsearch:elasticsearch /usr/share/elasticsearch]
+          command: ["/bin/sh", "-c", "chown -R elasticsearch:elasticsearch /usr/share/elasticsearch"]
 ---
 apiVersion: v1
 kind: Service
