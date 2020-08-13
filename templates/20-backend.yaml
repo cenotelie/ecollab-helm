@@ -163,6 +163,8 @@ spec:
               value: "AKIAIOSFODNN7EXAMPLE"
             - name: S3_PRIVATE
               value: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+            - name: ES_URL
+              value: "http://elasticsearch.default.svc.cluster.local:9200"
           volumeMounts:
             - mountPath: "/data"
               name: backend-data
