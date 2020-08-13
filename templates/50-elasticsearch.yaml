@@ -16,11 +16,10 @@ spec:
       labels:
         app: elasticsearch
     spec:
-      # FIXME: right issues with volumes, the solution (command) below does not seem to work
-      # volumes:
-      #   - name: esdata
-      #     hostPath:
-      #       path: /data/esdata
+      volumes:
+        - name: esdata
+          hostPath:
+            path: /data/esdata
       containers:
         - name: elasticsearch
           image: elasticsearch:7.8.1
@@ -32,10 +31,9 @@ spec:
           env:
             - name: discovery.type
               value: "single-node"
-          # volumeMounts:
-          #   - mountPath: "/usr/share/elasticsearch/data"
-          #     name: esdata
-          # command: ["/bin/sh", "-c", "chown -R elasticsearch:elasticsearch /usr/share/elasticsearch"]
+          volumeMounts:
+            - mountPath: "/usr/share/elasticsearch/data"
+              name: esdata
 ---
 apiVersion: v1
 kind: Service
