@@ -78,7 +78,7 @@ spec:
               containerPort: 8983
           env:
             - name: SOLR_ALFRESCO_HOST
-              value: "alfresco"
+              value: "alfresco.default.svc.cluster.local"
             - name: SOLR_ALFRESCO_PORT
               value: 8080
             - name: SOLR_SOLR_HOST

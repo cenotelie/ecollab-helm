@@ -3,12 +3,12 @@ entries:
   ecollab:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2020-09-11T16:11:12.900671641+02:00"
+    created: "2020-09-11T16:40:21.240880314+02:00"
     description: A Helm chart for the deployment of eCollab in a Kubernetes cluster
-    digest: de18703d7c3bb59837034d6a698c96da579ff8ba8a2bcfa6618bdf9f0930cea2
+    digest: 1b1cf749864eecc68715dbeb0327cfb85f457c05770eca5135209738e3ea717e
     name: ecollab
     type: application
     urls:
     - https://raw.githubusercontent.com/cenotelie/eCollab-helm/master/ecollab-0.1.0.tgz
     version: 0.1.0
-generated: "2020-09-11T16:11:12.899418997+02:00"
+generated: "2020-09-11T16:40:21.240332193+02:00"
