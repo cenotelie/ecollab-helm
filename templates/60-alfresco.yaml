@@ -256,7 +256,7 @@ spec:
                 -Dimg.url=http://transform-core-aio.default.svc.cluster.local:8090/
                 -Dtika.url=http://transform-core-aio.default.svc.cluster.local:8090/
                 -Dtransform.misc.url=http://transform-core-aio.default.svc.cluster.local:8090/
-                -Dcsrf.filter.enabled=false
+                -Dcsrf.filter.enabled=true
                 -Xms1500m -Xmx1500m"
 
 ---
