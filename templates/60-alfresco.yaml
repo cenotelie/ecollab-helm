@@ -257,6 +257,10 @@ spec:
                 -Dtika.url=http://transform-core-aio.default.svc.cluster.local:8090/
                 -Dtransform.misc.url=http://transform-core-aio.default.svc.cluster.local:8090/
                 -Dcsrf.filter.enabled=true
+                -Dcsrf.filter.referer=https://integration.ecollab.cenotelie.fr/*.
+                -Dcsrf.filter.referer.always=false
+                -Dcsrf.filter.origin=https://integration.ecollab.cenotelie.fr/
+                -Dcsrf.filter.origin.always=false
                 -Xms1500m -Xmx1500m"
 
 ---
