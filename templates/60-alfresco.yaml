@@ -278,22 +278,22 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   namespace: default
-  name: share
+  name: alfresco-share
   labels:
-    app: share
+    app: alfresco-share
 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: share
+      app: alfresco-share
   template:
     metadata:
       labels:
-        app: share
+        app: alfresco-share
     spec:
       containers:
-        - name: share
+        - name: alfresco-share
           image: "alfresco/alfresco-share:6.2.1"
           ports:
             - name: http
@@ -311,7 +311,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: share
+  name: alfresco-share
 spec:
   ports:
     - protocol: TCP
@@ -319,4 +319,4 @@ spec:
       port: 8080
       targetPort: 8080
   selector:
-    app: share
+    app: alfresco-share
