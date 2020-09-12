@@ -305,6 +305,7 @@ spec:
                       -Dalfresco.host=alfresco.default.svc.cluster.local
                       -Dalfresco.port=8080
                       -Dalfresco.context=alfresco
+                      -Dcsrf.filter.enabled=false
                       -Dalfresco.protocol=http"
 
 ---
