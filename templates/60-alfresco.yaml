@@ -245,9 +245,12 @@ spec:
                 -Dindex.subsystem.name=solr6
                 -Dshare.host=share.default.svc.cluster.local
                 -Dshare.port=8080
-                -Dalfresco.host=localhost
-                -Dalfresco.port=8080
-                -Daos.baseUrlOverwrite=http://localhost:8080/alfresco/aos
+                -Dalfresco.host=integration.ecollab.cenotelie.fr
+                -Dalfresco.port=443
+                -Dalfresco.baseUrl=/alfresco
+                -Dalfresco.context=alfresco
+                -Dalfresco.protocol=https
+                -Daos.baseUrlOverwrite=https://integration.ecollab.cenotelie.fr/alfresco/aos
                 -Dmessaging.broker.url=\"failover:(nio://activemq.default.svc.cluster.local:61616)?timeout=3000&jms.useCompression=true\"
                 -Ddeployment.method=HELM_CHART
                 -DlocalTransform.core-aio.url=http://transform-core-aio.default.svc.cluster.local:8090/
