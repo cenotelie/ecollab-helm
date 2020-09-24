@@ -119,130 +119,130 @@ spec:
     app: activiti-cloud-query
 
 ---
-kind: Deployment
-apiVersion: apps/v1
-metadata:
-  namespace: default
-  name: activiti-cloud-audit
-  labels:
-    app: activiti-cloud-audit
+# kind: Deployment
+# apiVersion: apps/v1
+# metadata:
+#   namespace: default
+#   name: activiti-cloud-audit
+#   labels:
+#     app: activiti-cloud-audit
 
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: activiti-cloud-audit
-  template:
-    metadata:
-      labels:
-        app: activiti-cloud-audit
-    spec:
-      containers:
-        - name: activiti-cloud-audit
-          image: "activiti/activiti-cloud-audit:{{ .Values.versions.activiti }}"
-          ports:
-            - name: http
-              containerPort: 8080
-          env:
-            - name: SPRING_JMX_ENABLED
-              value: "false"
-            - name: SPRING_RABBITMQ_HOST
-              value: "rabbitmq.default.svc.cluster.local"
-            - name: ACT_KEYCLOAK_URL
-              value: "{{ .Values.rootUri }}/auth"
-            - name: SERVER_SERVLET_CONTEXT_PATH
-              value: "/audit"
-            - name: SPRING_DATASOURCE_URL
-              value: "jdbc:postgresql://activiti-postgres.default.svc.cluster.local:5432/activitidb"
-            - name: SPRING_DATASOURCE_USERNAME
-              value: "activiti"
-            - name: SPRING_DATASOURCE_PASSWORD
-              value: "mypassword"
-            - name: SPRING_JPA_DATABASE_PLATFORM
-              value: "org.hibernate.dialect.PostgreSQLDialect"
-            - name: SPRING_JPA_GENERATE_DDL
-              value: "true"
-            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
-              value: "update"
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: activiti-cloud-audit
+#   template:
+#     metadata:
+#       labels:
+#         app: activiti-cloud-audit
+#     spec:
+#       containers:
+#         - name: activiti-cloud-audit
+#           image: "activiti/activiti-cloud-audit:{{ .Values.versions.activiti }}"
+#           ports:
+#             - name: http
+#               containerPort: 8080
+#           env:
+#             - name: SPRING_JMX_ENABLED
+#               value: "false"
+#             - name: SPRING_RABBITMQ_HOST
+#               value: "rabbitmq.default.svc.cluster.local"
+#             - name: ACT_KEYCLOAK_URL
+#               value: "{{ .Values.rootUri }}/auth"
+#             - name: SERVER_SERVLET_CONTEXT_PATH
+#               value: "/audit"
+#             - name: SPRING_DATASOURCE_URL
+#               value: "jdbc:postgresql://activiti-postgres.default.svc.cluster.local:5432/activitidb"
+#             - name: SPRING_DATASOURCE_USERNAME
+#               value: "activiti"
+#             - name: SPRING_DATASOURCE_PASSWORD
+#               value: "mypassword"
+#             - name: SPRING_JPA_DATABASE_PLATFORM
+#               value: "org.hibernate.dialect.PostgreSQLDialect"
+#             - name: SPRING_JPA_GENERATE_DDL
+#               value: "true"
+#             - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+#               value: "update"
 
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: activiti-cloud-audit
-spec:
-  ports:
-    - protocol: TCP
-      name: http
-      port: 8080
-      targetPort: 8080
-  selector:
-    app: activiti-cloud-audit
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: activiti-cloud-audit
+# spec:
+#   ports:
+#     - protocol: TCP
+#       name: http
+#       port: 8080
+#       targetPort: 8080
+#   selector:
+#     app: activiti-cloud-audit
 
----
-kind: Deployment
-apiVersion: apps/v1
-metadata:
-  namespace: default
-  name: activiti-cloud-notifications-graphql
-  labels:
-    app: activiti-cloud-notifications-graphql
+# ---
+# kind: Deployment
+# apiVersion: apps/v1
+# metadata:
+#   namespace: default
+#   name: activiti-cloud-notifications-graphql
+#   labels:
+#     app: activiti-cloud-notifications-graphql
 
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: activiti-cloud-notifications-graphql
-  template:
-    metadata:
-      labels:
-        app: activiti-cloud-notifications-graphql
-    spec:
-      containers:
-        - name: activiti-cloud-notifications-graphql
-          image: "activiti/activiti-cloud-notifications-graphql:{{ .Values.versions.activiti }}"
-          ports:
-            - name: http
-              containerPort: 8080
-          env:
-            - name: SPRING_JMX_ENABLED
-              value: "false"
-            - name: SPRING_RABBITMQ_HOST
-              value: "rabbitmq.default.svc.cluster.local"
-            - name: ACT_KEYCLOAK_URL
-              value: "{{ .Values.rootUri }}/auth"
-            - name: SERVER_SERVLET_CONTEXT_PATH
-              value: "/notifications"
-            - name: SPRING_DATASOURCE_URL
-              value: "jdbc:postgresql://activiti-postgres.default.svc.cluster.local:5432/activitidb"
-            - name: SPRING_DATASOURCE_USERNAME
-              value: "activiti"
-            - name: SPRING_DATASOURCE_PASSWORD
-              value: "mypassword"
-            - name: SPRING_JPA_DATABASE_PLATFORM
-              value: "org.hibernate.dialect.PostgreSQLDialect"
-            - name: SPRING_JPA_GENERATE_DDL
-              value: "true"
-            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
-              value: "none"
-            - name: SPRING_JPA_PROPERTIES_HIBERNATE_TEMP_USE_JDBC_METADATA_DEFAULTS
-              value: "false"
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: activiti-cloud-notifications-graphql
+#   template:
+#     metadata:
+#       labels:
+#         app: activiti-cloud-notifications-graphql
+#     spec:
+#       containers:
+#         - name: activiti-cloud-notifications-graphql
+#           image: "activiti/activiti-cloud-notifications-graphql:{{ .Values.versions.activiti }}"
+#           ports:
+#             - name: http
+#               containerPort: 8080
+#           env:
+#             - name: SPRING_JMX_ENABLED
+#               value: "false"
+#             - name: SPRING_RABBITMQ_HOST
+#               value: "rabbitmq.default.svc.cluster.local"
+#             - name: ACT_KEYCLOAK_URL
+#               value: "{{ .Values.rootUri }}/auth"
+#             - name: SERVER_SERVLET_CONTEXT_PATH
+#               value: "/notifications"
+#             - name: SPRING_DATASOURCE_URL
+#               value: "jdbc:postgresql://activiti-postgres.default.svc.cluster.local:5432/activitidb"
+#             - name: SPRING_DATASOURCE_USERNAME
+#               value: "activiti"
+#             - name: SPRING_DATASOURCE_PASSWORD
+#               value: "mypassword"
+#             - name: SPRING_JPA_DATABASE_PLATFORM
+#               value: "org.hibernate.dialect.PostgreSQLDialect"
+#             - name: SPRING_JPA_GENERATE_DDL
+#               value: "true"
+#             - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+#               value: "none"
+#             - name: SPRING_JPA_PROPERTIES_HIBERNATE_TEMP_USE_JDBC_METADATA_DEFAULTS
+#               value: "false"
 
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: activiti-cloud-notifications-graphql
-spec:
-  ports:
-    - protocol: TCP
-      name: http
-      port: 8080
-      targetPort: 8080
-  selector:
-    app: activiti-cloud-notifications-graphql
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: activiti-cloud-notifications-graphql
+# spec:
+#   ports:
+#     - protocol: TCP
+#       name: http
+#       port: 8080
+#       targetPort: 8080
+#   selector:
+#     app: activiti-cloud-notifications-graphql
 
----
+# ---
 kind: Deployment
 apiVersion: apps/v1
 metadata:
