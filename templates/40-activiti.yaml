@@ -118,7 +118,7 @@ spec:
   selector:
     app: activiti-cloud-query
 
----
+# ---
 # kind: Deployment
 # apiVersion: apps/v1
 # metadata:
@@ -242,7 +242,7 @@ spec:
 #   selector:
 #     app: activiti-cloud-notifications-graphql
 
-# ---
+---
 kind: Deployment
 apiVersion: apps/v1
 metadata:
@@ -356,54 +356,54 @@ spec:
   selector:
     app: activiti-cloud-modeling-backend
 
----
-kind: Deployment
-apiVersion: apps/v1
-metadata:
-  namespace: default
-  name: connectors
-  labels:
-    app: connectors
+# ---
+# kind: Deployment
+# apiVersion: apps/v1
+# metadata:
+#   namespace: default
+#   name: connectors
+#   labels:
+#     app: connectors
 
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: connectors
-  template:
-    metadata:
-      labels:
-        app: connectors
-    spec:
-      imagePullSecrets:
-        - name: ecollab-registry
-      containers:
-        - name: connectors
-          image: "rg.fr-par.scw.cloud/ecollab/process-connectors:{{ .Values.versions.connectors }}"
-          ports:
-            - name: http
-              containerPort: 8080
-          env:
-            - name: SPRING_JMX_ENABLED
-              value: "false"
-            - name: SPRING_RABBITMQ_HOST
-              value: "rabbitmq.default.svc.cluster.local"
-            - name:  ACT_KEYCLOAK_URL
-              value: "{{ .Values.rootUri }}/auth"
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: connectors
+#   template:
+#     metadata:
+#       labels:
+#         app: connectors
+#     spec:
+#       imagePullSecrets:
+#         - name: ecollab-registry
+#       containers:
+#         - name: connectors
+#           image: "rg.fr-par.scw.cloud/ecollab/process-connectors:{{ .Values.versions.connectors }}"
+#           ports:
+#             - name: http
+#               containerPort: 8080
+#           env:
+#             - name: SPRING_JMX_ENABLED
+#               value: "false"
+#             - name: SPRING_RABBITMQ_HOST
+#               value: "rabbitmq.default.svc.cluster.local"
+#             - name:  ACT_KEYCLOAK_URL
+#               value: "{{ .Values.rootUri }}/auth"
 
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: connectors
-spec:
-  ports:
-    - protocol: TCP
-      name: http
-      port: 8080
-      targetPort: 8080
-  selector:
-    app: connectors
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: connectors
+# spec:
+#   ports:
+#     - protocol: TCP
+#       name: http
+#       port: 8080
+#       targetPort: 8080
+#   selector:
+#     app: connectors
 
 ---
 kind: Deployment
