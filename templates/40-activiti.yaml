@@ -341,6 +341,18 @@ spec:
               value: "{{ .Values.rootUri }}"
             - name: SERVER_SERVLET_CONTEXT_PATH
               value: "/modeling-service"
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://activiti-postgres.default.svc.cluster.local:5432/activitidb"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "activiti"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "mypassword"
+            - name: SPRING_JPA_DATABASE_PLATFORM
+              value: "org.hibernate.dialect.PostgreSQLDialect"
+            - name: SPRING_JPA_GENERATE_DDL
+              value: "true"
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              value: "update"
 
 ---
 apiVersion: v1
