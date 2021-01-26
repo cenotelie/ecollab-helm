@@ -80,6 +80,8 @@ spec:
           env:
             - name: SERVER_NAME
               value: "kibana"
+            - name: SERVER_BASEPATH
+              value: "/kibana"
             - name: ELASTICSEARCH_URL
               value: http://elasticsearch.default.svc.cluster.local:9200
 
