@@ -71,10 +71,6 @@ spec:
       labels:
         app: kibana
     spec:
-      volumes:
-        - name: esdata
-          hostPath:
-            path: /data/esdata
       containers:
         - name: kibana
           image: kibana:7.8.1
