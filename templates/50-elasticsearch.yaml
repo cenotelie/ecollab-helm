@@ -22,7 +22,7 @@ spec:
             path: /data/esdata
       containers:
         - name: elasticsearch
-          image: elasticsearch:7.8.1
+          image: elasticsearch:7.17.4
           ports:
             - name: es1
               containerPort: 9200
@@ -73,7 +73,7 @@ spec:
     spec:
       containers:
         - name: kibana
-          image: kibana:7.8.1
+          image: kibana:7.17.4
           ports:
             - name: kibana
               containerPort: 5601

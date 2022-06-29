@@ -20,15 +20,21 @@ spec:
         - name: rabbitmq-data
           hostPath:
             path: /data/rabbitmq
+        - name: rabbit-config
+          configMap:
+            name: "rabbit-config"
       containers:
         - name: rabbitmq
-          image: activiti/rabbitmq-stomp:7.0.0.RC1
+          image: rabbitmq
           ports:
             - name: mq2
               containerPort: 5672
           volumeMounts:
             - mountPath: "/var/lib/rabbitmq"
               name: rabbitmq-data
+            - mountPath: "/etc/rabbitmq/enabled_plugins"
+              name: "rabbit-config"
+              subPath: "enabled_plugins"
 
 ---
 apiVersion: v1

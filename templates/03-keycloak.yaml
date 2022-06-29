@@ -22,7 +22,7 @@ spec:
             path: /data/keycloak-pg
       containers:
         - name: keycloak-postgres
-          image: postgres:12-alpine
+          image: postgres:alpine
           ports:
             - name: sql
               containerPort: 5432

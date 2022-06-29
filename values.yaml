@@ -9,11 +9,11 @@ imageCredentials:
 
 # 'latest' are not real version number and must be overriden
 versions:
-  saas: latest
-  backend: latest
-  frontend: latest
-  activiti: 7.1.0.M6
-  processes: latest
-  connectors: latest
+  saas: v1.0.2
+  backend: v1.0.8
+  frontend: v1.0.7
+  activiti: 7.2.3
+  processes: v1.0.0
+  # connectors: latest
 
-rootUri: "https://integration.ecollab.cenotelie.fr"
+rootUri: "https://ecollab.cenotelie.fr"

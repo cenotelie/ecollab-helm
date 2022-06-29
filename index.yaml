@@ -9,6 +9,6 @@ entries:
     name: ecollab
     type: application
     urls:
-    - https://raw.githubusercontent.com/cenotelie/eCollab-helm/master/ecollab-0.1.0.tgz
+    - https://raw.raw.githubusercontentusercontent.com/cenotelie/eCollab-helm/master/master/ecollab-0.1.0.tgz
     version: 0.1.0
 generated: "2021-01-30T17:30:35.375555482+01:00"
