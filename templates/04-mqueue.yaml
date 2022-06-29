@@ -1,3 +1,13 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: rabbit-config
+  namespace: default
+data:
+  enabled_plugins: |
+          [rabbitmq_management,rabbitmq_stomp].
+
+---
 kind: Deployment
 apiVersion: apps/v1
 metadata:
@@ -20,9 +30,9 @@ spec:
         - name: rabbitmq-data
           hostPath:
             path: /data/rabbitmq
-        - name: rabbit-config
+        - name: rabbit-volume
           configMap:
-            name: "rabbit-config"
+            name: rabbit-config
       containers:
         - name: rabbitmq
           image: rabbitmq
@@ -33,7 +43,7 @@ spec:
             - mountPath: "/var/lib/rabbitmq"
               name: rabbitmq-data
             - mountPath: "/etc/rabbitmq/enabled_plugins"
-              name: "rabbit-config"
+              name: "rabbit-volume"
               subPath: "enabled_plugins"
 
 ---
