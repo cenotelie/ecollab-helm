@@ -151,7 +151,7 @@ spec:
             - name: API_URL
               value: "{{ .Values.rootUri }}"
             - name: BASE_PATH
-              value: "/modeling/"
+              value: "/modeling"
             - name: APP_CONFIG_BPM_HOST
               value: "{{ .Values.rootUri }}"
             - name: APP_CONFIG_OAUTH2_REDIRECT_SILENT_IFRAME_URI
