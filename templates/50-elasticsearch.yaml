@@ -20,6 +20,13 @@ spec:
         - name: esdata
           hostPath:
             path: /data/esdata
+      initContainers:
+      - name: chown
+        image: elasticsearch:7.17.4
+        command: ["chown", "-v", "elasticsearch:elasticsearch", "/usr/share/elasticsearch/data" ]
+        volumeMounts:
+        - name: esdata
+          mountPath: "/usr/share/elasticsearch/data"
       containers:
         - name: elasticsearch
           image: elasticsearch:7.17.4
@@ -57,31 +64,33 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   namespace: default
-  name: kibana
+  name: analytics
   labels:
-    app: kibana
+    app: analytics
 
 spec:
   replicas: 
   selector:
     matchLabels:
-      app: kibana
+      app: analytics
   template:
     metadata:
       labels:
-        app: kibana
+        app: analytics
     spec:
       containers:
-        - name: kibana
+        - name: analytics
           image: kibana:7.17.4
           ports:
-            - name: kibana
+            - name: analytics
               containerPort: 5601
           env:
             - name: SERVER_NAME
-              value: "kibana"
+              value: "analytics"
             - name: SERVER_BASEPATH
               value: "/analytics"
+            - name: SERVER_HOST
+              value: "0.0.0.0"
             - name: ELASTICSEARCH_URL
               value: http://elasticsearch.default.svc.cluster.local:9200
 
@@ -89,12 +98,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: kibana
+  name: analytics
 spec:
   ports:
     - protocol: TCP
-      name: kibana
+      name: analytics
       port: 5601
       targetPort: 5601
   selector:
-    app: kibana
+    app: analytics

@@ -2,23 +2,23 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   namespace: default
-  name: ldap
+  name: ldap-server
   labels:
-    app: ldap
+    app: ldap-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ldap
+      app: ldap-server
   template:
     metadata:
       labels:
-        app: ldap
+        app: ldap-server
     spec:
       imagePullSecrets:
       - name: ecollab-registry
       containers:
-        - name: ldap
+        - name: ldap-server
           image: "rg.fr-par.scw.cloud/ecollab/ldap:{{ .Values.versions.saas }}"
           env:
             - name: LDAP_ORGANISATION
@@ -32,16 +32,16 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ldap
+  name: ldap-server
 spec:
   ports:
     - protocol: TCP
-      name: ldap1
+      name: ldap-server1
       port: 389
       targetPort: 389
     - protocol: TCP
-      name: ldap2
+      name: ldap-server2
       port: 636
       targetPort: 636
   selector:
-    app: ldap
+    app: ldap-server

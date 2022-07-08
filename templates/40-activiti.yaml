@@ -142,7 +142,7 @@ spec:
           image: "activiti/activiti-modeling-app:{{ .Values.versions.activiti }}"
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
           env:
             - name: APP_CONFIG_OAUTH2_HOST
               value: "{{ .Values.rootUri }}/auth/realms/activiti"
@@ -160,6 +160,8 @@ spec:
               value: "/modeling"
             - name: APP_CONFIG_OAUTH2_REDIRECT_LOGOUT
               value: "/modeling"
+            - name: SERVER_PORT
+              value: "8080"
 
 ---
 apiVersion: v1
@@ -170,8 +172,8 @@ spec:
   ports:
     - protocol: TCP
       name: http
-      port: 80
-      targetPort: 80
+      port: 8080
+      targetPort: 8080
   selector:
     app: activiti-cloud-modeling
 
