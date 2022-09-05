@@ -9,11 +9,11 @@ imageCredentials:
 
 # 'latest' are not real version number and must be overriden
 versions:
-  saas: v1.0.2
-  backend: v1.0.8
-  frontend: v1.0.7
+  saas: git-1f9b92e
+  backend: git-142b978
+  frontend: git-2ae1d52
   activiti: 7.2.3
-  processes: v1.0.0
+  processes: git-9b45881
   # connectors: latest
 
 rootUri: "https://ecollab.cenotelie.fr"
