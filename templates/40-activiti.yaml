@@ -51,7 +51,7 @@ spec:
   selector:
     app: activiti-postgres
 
----
+# ---
 # kind: Deployment
 # apiVersion: apps/v1
 # metadata:
@@ -118,66 +118,66 @@ spec:
 #   selector:
 #     app: activiti-cloud-query
 
-# ---
-# kind: Deployment
-# apiVersion: apps/v1
-# metadata:
-#   namespace: default
-#   name: activiti-cloud-modeling
-#   labels:
-#     app: activiti-cloud-modeling
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  namespace: default
+  name: activiti-cloud-modeling
+  labels:
+    app: activiti-cloud-modeling
 
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: activiti-cloud-modeling
-#   template:
-#     metadata:
-#       labels:
-#         app: activiti-cloud-modeling
-#     spec:
-#       containers:
-#         - name: activiti-cloud-modeling
-#           image: "activiti/activiti-modeling-app:{{ .Values.versions.activiti }}"
-#           ports:
-#             - name: http
-#               containerPort: 8080
-#           env:
-#             - name: APP_CONFIG_OAUTH2_HOST
-#               value: "{{ .Values.rootUri }}/auth/realms/activiti"
-#             - name: APP_CONFIG_OAUTH2_CLIENTID
-#               value: "activiti"
-#             - name: API_URL
-#               value: "{{ .Values.rootUri }}"
-#             - name: BASE_PATH
-#               value: "/modeling"
-#             - name: APP_CONFIG_BPM_HOST
-#               value: "{{ .Values.rootUri }}"
-#             - name: APP_CONFIG_OAUTH2_REDIRECT_SILENT_IFRAME_URI
-#               value: "/modeling/assets/silent-refresh.html"
-#             - name: APP_CONFIG_OAUTH2_REDIRECT_LOGIN
-#               value: "/modeling"
-#             - name: APP_CONFIG_OAUTH2_REDIRECT_LOGOUT
-#               value: "/modeling"
-#             - name: SERVER_PORT
-#               value: "8080"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: activiti-cloud-modeling
+  template:
+    metadata:
+      labels:
+        app: activiti-cloud-modeling
+    spec:
+      containers:
+        - name: activiti-cloud-modeling
+          image: "activiti/activiti-modeling-app:{{ .Values.versions.activiti }}"
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: APP_CONFIG_OAUTH2_HOST
+              value: "{{ .Values.rootUri }}/auth/realms/activiti"
+            - name: APP_CONFIG_OAUTH2_CLIENTID
+              value: "activiti"
+            - name: API_URL
+              value: "{{ .Values.rootUri }}"
+            - name: BASE_PATH
+              value: "/modeling"
+            - name: APP_CONFIG_BPM_HOST
+              value: "{{ .Values.rootUri }}"
+            - name: APP_CONFIG_OAUTH2_REDIRECT_SILENT_IFRAME_URI
+              value: "/modeling/assets/silent-refresh.html"
+            - name: APP_CONFIG_OAUTH2_REDIRECT_LOGIN
+              value: "/modeling"
+            - name: APP_CONFIG_OAUTH2_REDIRECT_LOGOUT
+              value: "/modeling"
+            - name: SERVER_PORT
+              value: "8080"
 
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: activiti-cloud-modeling
-# spec:
-#   ports:
-#     - protocol: TCP
-#       name: http
-#       port: 8080
-#       targetPort: 8080
-#   selector:
-#     app: activiti-cloud-modeling
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: activiti-cloud-modeling
+spec:
+  ports:
+    - protocol: TCP
+      name: http
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: activiti-cloud-modeling
 
-# ---
+---
 kind: Deployment
 apiVersion: apps/v1
 metadata:
