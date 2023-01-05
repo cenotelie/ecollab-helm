@@ -1,0 +1,34 @@
+trigger:
+  branches:
+    include:
+      - master
+
+resources:
+- repo: self
+
+stages:
+- stage: Deployment
+  displayName: Deployment
+  jobs:
+  - job: Deployment
+    displayName: Deployment on integration
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: ShellScript@2
+      displayName: Build helm application
+      inputs:
+        scriptPath: build.sh
+    # - bash: |
+    #     git config user.email "contact@cenotelie.fr"
+    #     git config user.name "Azure Pipeline"
+    #     git add .
+    #     git commit -m "Packaged new version"
+    #     git push https://git:%GITHUBTOKEN@github.com/cenotelie/ecollab-helm HEAD:master
+    - task: SSH@0
+      inputs:
+        sshEndpoint: ecollab-integration
+        runOptions: 'commands'
+        commands: |
+          sudo helm repo update
+          sudo helm upgrade -f values.yaml $(sudo helm list | awk '/ecollab/{print $1}') ecollab/ecollab
