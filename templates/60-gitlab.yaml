@@ -1,0 +1,78 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  namespace: default
+  name: gitlab
+  labels:
+    app: gitlab
+
+spec:
+  replicas:
+  selector:
+    matchLabels:
+      app: gitlab
+  template:
+    metadata:
+      labels:
+        app: gitlab
+    spec:
+      volumes:
+        - name: gitlabconfig
+          hostPath:
+            path: /data/gitlab/config
+        - name: gitlablogs
+          hostPath:
+            path: /data/gitlab/logs
+        - name: gitlabdata
+          hostPath:
+            path: /data/gitlab/data
+      containers:
+        - name: gitlab
+          image: gitlab/gitlab-ce:latest
+          ports:
+            - name: http
+              containerPort: 80
+          env:
+            - name: GITLAB_OMNIBUS_CONFIG
+              value: |+
+                external_url 'https://ecollab.cenotelie.fr/vcs'
+                nginx['listen_port'] = 80
+                nginx['listen_https'] = false
+                nginx['redirect_http_to_https'] = false
+                gitlab_rails['gitlab_shell_ssh_port'] = 22
+                gitlab_rails['omniauth_enabled'] = true
+                gitlab_rails['omniauth_allow_single_sign_on'] = ['saml']
+                gitlab_rails['omniauth_block_auto_created_users'] = false
+                gitlab_rails['omniauth_auto_link_saml_user'] = true
+                gitlab_rails['omniauth_providers'] = [{
+                  name: 'saml',
+                  args: {
+                    assertion_consumer_service_url: 'https://ecollab.cenotelie.fr/vcs/users/auth/saml/callback',
+                    idp_cert_fingerprint: '44:44:AE:FB:5D:BE:C9:E6:3C:9C:9E:94:49:C7:6C:34:3D:3D:69:82',
+                    idp_sso_target_url: 'https://ecollab.cenotelie.fr/auth/realms/activiti/protocol/saml/clients/gitlab',
+                    issuer: 'gitlab',
+                    name_identifier_format: 'urn:oasis:names:tc:SAML:2.0:nameid-format:persistent'
+                  },
+                  label: 'eCollab Login'
+                }]
+          volumeMounts:
+            - mountPath: "/etc/gitlab"
+              name: gitlabconfig
+            - mountPath: "/var/log/gitlab"
+              name: gitlablogs
+            - mountPath: "/var/opt/gitlab"
+              name: gitlabdata
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gitlab
+spec:
+  ports:
+    - protocol: TCP
+      name: http
+      port: 80
+      targetPort: 80
+  selector:
+    app: gitlab
