@@ -38,6 +38,7 @@ spec:
               name: backend-data
 
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -52,6 +53,7 @@ spec:
     app: backend-postgres
 
 ---
+
 kind: Deployment
 apiVersion: apps/v1
 metadata:
@@ -91,6 +93,7 @@ spec:
               name: backend-miniodata
 
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -137,26 +140,16 @@ spec:
             - name: http
               containerPort: 8080
           env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
             - name: DB_URL
-              value: "jdbc:postgresql://backend-postgres.default.svc.cluster.local/backend?user=backend&password=backend"
-            - name: LTS
-              value: "blazegraph_kubernetes"
-            - name: BLZG_IMAGE
-              value: "rg.fr-par.scw.cloud/ecollab/blazegraph:{{ .Values.versions.saas }}"
-            - name: CONSISTENCY_RUNNER
-              value: xowl_kubernetes
-            - name: EXECUTOR
-              value: "openfaas"
+              value: r2dbc:postgresql://backend-postgres.default.svc.cluster.local/backend
             - name: KEYCLOAK_URL
               value: "{{ .Values.rootUri }}/auth"
-            - name: KEYCLOAK_SECRET
-              value: "86708154-592b-4739-83a7-648c18ca67a4"
             - name: KEYCLOAK_REALM
               value: "activiti"
             - name: KEYCLOAK_CLIENT
-              value: "activiti"
-            - name: K8S_DEBUG
-              value: "true"
+              value: "ecollab"
             - name: S3_ENDPOINT
               value: "http://backend-minio.default.svc.cluster.local:9000"
             - name: S3_ACCESS_KEY
@@ -164,7 +157,15 @@ spec:
             - name: S3_PRIVATE
               value: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
             - name: ES_URL
-              value: "http://elasticsearch.default.svc.cluster.local:9200"
+              value: "elasticsearch.default.svc.cluster.local:9200"
+            - name: RABBITMQ_HOST
+              value: "rabbitmq.default.svc.cluster.local"
+            - name: KAFKA_URL
+              value: "kafka.default.svc.cluster.local:9092"
+            - name: REDIS_HOST
+              value: "redis.default.svc.cluster.local"
+            - name: BLAZEGRAPH_URL
+              value: "http://blazegraph.default.svc.cluster.local:8080/bigdata/namespace/kb/sparql"
           volumeMounts:
             - mountPath: "/data"
               name: backend-data

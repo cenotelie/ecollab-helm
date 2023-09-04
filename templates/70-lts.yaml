@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: blazegraph-pv
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data/blazegraph"
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: blazegraph-pvc
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blazegraph
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blazegraph
+  template:
+    metadata:
+      labels:
+        app: blazegraph
+    spec:
+      containers:
+      - name: blazegraph
+        image: rg.fr-par.scw.cloud/ecollab/blazegraph:latest
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: blazegraph-storage
+          mountPath: /data
+      volumes:
+      - name: blazegraph-storage
+        persistentVolumeClaim:
+          claimName: blazegraph-pvc
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: blazegraph
+spec:
+  selector:
+    app: blazegraph
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
