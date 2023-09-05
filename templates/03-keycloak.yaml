@@ -28,7 +28,6 @@ spec:
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  namespace: default
   name: keycloak-postgres
   labels:
     app: keycloak-postgres
@@ -82,7 +81,6 @@ spec:
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  namespace: default
   name: keycloak
   labels:
     app: keycloak

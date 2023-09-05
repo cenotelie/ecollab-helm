@@ -21,7 +21,7 @@ kind: RoleBinding
 metadata:
   name: auto-deployer-binding
   namespace: default
-roleRef:
+roleRef:  
   apiGroup: rbac.authorization.k8s.io
   kind: Role
   name: auto-deployer-role

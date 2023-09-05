@@ -1,7 +1,6 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  namespace: default
   name: ldap-server
   labels:
     app: ldap-server

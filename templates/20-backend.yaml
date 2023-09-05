@@ -1,7 +1,6 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  namespace: default
   name: backend-postgres
   labels:
     app: backend-postgres
@@ -57,7 +56,6 @@ spec:
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  namespace: default
   name: backend-minio
   labels:
     app: backend-minio
@@ -111,7 +109,6 @@ spec:
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  namespace: default
   name: backend
   labels:
     app: backend
@@ -141,9 +138,9 @@ spec:
               containerPort: 8080
           env:
             - name: SPRING_PROFILES_ACTIVE
-              value: prod
+              value: "prod"
             - name: DB_URL
-              value: r2dbc:postgresql://backend-postgres.default.svc.cluster.local/backend
+              value: "r2dbc:postgresql://backend-postgres.default.svc.cluster.local/backend"
             - name: KEYCLOAK_URL
               value: "{{ .Values.rootUri }}/auth"
             - name: KEYCLOAK_REALM
@@ -157,11 +154,11 @@ spec:
             - name: S3_PRIVATE
               value: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
             - name: ES_URL
-              value: "elasticsearch.default.svc.cluster.local:9200"
+              value: "http://elasticsearch.default.svc.cluster.local:9200"
             - name: RABBITMQ_HOST
               value: "rabbitmq.default.svc.cluster.local"
             - name: KAFKA_URL
-              value: "kafka.default.svc.cluster.local:9092"
+              value: "kafka-broker.default.svc.cluster.local:9092"
             - name: REDIS_HOST
               value: "redis.default.svc.cluster.local"
             - name: BLAZEGRAPH_URL
@@ -169,6 +166,17 @@ spec:
           volumeMounts:
             - mountPath: "/data"
               name: backend-data
+      initContainers:
+        - name: check-elasticsearch
+          image: appropriate/curl:latest
+          command:
+          - sh
+          - -c
+          - |
+            until curl http://elasticsearch.default.svc.cluster.local:9200; do
+              echo "Waiting for Elasticsearch..."
+              sleep 10
+            done
 
 ---
 apiVersion: v1

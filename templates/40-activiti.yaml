@@ -1,7 +1,6 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  namespace: default
   name: activiti-postgres
   labels:
     app: activiti-postgres
@@ -55,7 +54,6 @@ spec:
 # kind: Deployment
 # apiVersion: apps/v1
 # metadata:
-#   namespace: default
 #   name: activiti-cloud-query
 #   labels:
 #     app: activiti-cloud-query
@@ -122,7 +120,6 @@ spec:
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  namespace: default
   name: activiti-cloud-modeling
   labels:
     app: activiti-cloud-modeling
@@ -181,7 +178,6 @@ spec:
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  namespace: default
   name: activiti-cloud-modeling-backend
   labels:
     app: activiti-cloud-modeling-backend
@@ -250,7 +246,6 @@ spec:
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  namespace: default
   name: processes
   labels:
     app: processes
