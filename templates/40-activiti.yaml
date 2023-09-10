@@ -50,72 +50,6 @@ spec:
   selector:
     app: activiti-postgres
 
-# ---
-# kind: Deployment
-# apiVersion: apps/v1
-# metadata:
-#   name: activiti-cloud-query
-#   labels:
-#     app: activiti-cloud-query
-
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: activiti-cloud-query
-#   template:
-#     metadata:
-#       labels:
-#         app: activiti-cloud-query
-#     spec:
-#       containers:
-#         - name: activiti-cloud-query
-#           image: "activiti/activiti-cloud-query:{{ .Values.versions.activiti }}"
-#           ports:
-#             - name: http
-#               containerPort: 8080
-#           env:
-#             - name: SPRING_JMX_ENABLED
-#               value: "false"
-#             - name: SPRING_RABBITMQ_HOST
-#               value: "rabbitmq.default.svc.cluster.local"
-#             - name: ACT_KEYCLOAK_URL
-#               value: "{{ .Values.rootUri }}/auth"
-#             - name: SERVER_SERVLET_CONTEXT_PATH
-#               value: "/query"
-#             - name: SPRING_DATASOURCE_URL
-#               value: "jdbc:postgresql://activiti-postgres.default.svc.cluster.local:5432/activitidb"
-#             - name: SPRING_DATASOURCE_USERNAME
-#               value: "activiti"
-#             - name: SPRING_DATASOURCE_PASSWORD
-#               value: "mypassword"
-#             - name: SPRING_JPA_DATABASE_PLATFORM
-#               value: "org.hibernate.dialect.PostgreSQLDialect"
-#             - name: SPRING_JPA_GENERATE_DDL
-#               value: "true"
-#             - name: SPRING_JPA_HIBERNATE_DDL_AUTO
-#               value: "update"
-#             - name: SPRING.GRAPHQL_JPA_QUERY_PATH
-#               value: "/notifications/graphql"
-#             - name: GRAPHIQL_GRAPHQL_WEB_PATH
-#               value: "/notifications/graphql"
-#             - name: GRAPHIQL_GRAPHQL_WS_PATH
-#               value: "/notifications/graphql"
-
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: activiti-cloud-query
-# spec:
-#   ports:
-#     - protocol: TCP
-#       name: http
-#       port: 8080
-#       targetPort: 8080
-#   selector:
-#     app: activiti-cloud-query
-
 ---
 kind: Deployment
 apiVersion: apps/v1
@@ -293,6 +227,17 @@ spec:
               value: "true"
             - name: SPRING_JPA_HIBERNATE_DDL_AUTO
               value: "update"
+      initContainers:
+        - name: check-rabbitmq
+          image: appropriate/curl:latest
+          command:
+          - sh
+          - -c
+          - |
+            until curl http://rabbitmq.default.svc.cluster.local:15672; do
+              echo "Waiting for RabbitMQ..."
+              sleep 10
+            done
 
 ---
 apiVersion: v1

@@ -43,6 +43,12 @@ spec:
             - mountPath: "/etc/rabbitmq/enabled_plugins"
               name: "rabbit-volume"
               subPath: "enabled_plugins"
+          # readinessProbe:
+          #   httpGet:
+          #     path: /api/healthchecks/node
+          #     port: 15672
+          #   initialDelaySeconds: 20
+          #   periodSeconds: 10
 
 ---
 apiVersion: v1
