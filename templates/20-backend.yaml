@@ -157,8 +157,10 @@ spec:
               value: "http://elasticsearch.default.svc.cluster.local:9200"
             - name: RABBITMQ_HOST
               value: "rabbitmq.default.svc.cluster.local"
-            - name: KAFKA_URL
-              value: "kafka-broker.default.svc.cluster.local:9092"
+            - name: KAFKA_HOST
+              value: "kafka-broker.default.svc.cluster.local"
+            - name: KAFKA_PORT
+              value: "9092"
             - name: REDIS_HOST
               value: "redis.default.svc.cluster.local"
             - name: BLAZEGRAPH_URL
