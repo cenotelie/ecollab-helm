@@ -9,10 +9,11 @@ imageCredentials:
 
 # 'latest' are not real version number and must be overriden
 versions:
-  saas: git-1f9b92e
-  backend: git-142b978
-  frontend: git-2ae1d52
+  saas: git-3b7a25c
+  backend: git-3984998
+  frontend: git-3d522a2
   activiti: 7.2.3
+  blazegraph: git-bcb3856
   processes: git-9b45881
   # connectors: latest
 

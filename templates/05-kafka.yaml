@@ -38,7 +38,7 @@ kind: Service
 metadata:
   labels:
     app: kafka-broker
-  name: kafka-service
+  name: kafka-broker
 spec:
   ports:
   - port: 9092
